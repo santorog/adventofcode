@@ -24,15 +24,15 @@ object Day3 {
 
   def calculate(map: Array[Array[Char]], r: Int, d: Int): Long = {
     @tailrec
-    def acc(x: Int, y: Int, h: Int, w: Int, res: Long): Long = {
+    def aux(x: Int, y: Int, h: Int, w: Int, res: Long): Long = {
       y match {
         case v if v > h - 1 => res
-        case _ => acc((x + r) % w, y + d, h, w,
+        case _ => aux((x + r) % w, y + d, h, w,
           res + (if (map(y)(x) == '#') 1 else 0))
       }
     }
 
-    acc(r, d, map.length, map(0).length, 0)
+    aux(r, d, map.length, map(0).length, 0)
   }
 }
 
