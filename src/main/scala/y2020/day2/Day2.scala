@@ -6,7 +6,7 @@ object Day2 {
 
   def runDay2(): Unit = {
     val f = Source.fromFile("input/2020/day2.txt")
-    println(Day2.process(f))
+    println(process(f))
     f.close()
   }
 
