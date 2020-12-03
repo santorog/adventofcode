@@ -26,7 +26,7 @@ object Day3 {
     @tailrec
     def acc(x: Int, y: Int, h: Int, w: Int, res: Long): Long = {
       y match {
-        case x if y > h - 1 => res
+        case v if v > h - 1 => res
         case _ => acc((x + r) % w, y + d, h, w,
           res + (if (map(y)(x) == '#') 1 else 0))
       }
