@@ -12,7 +12,6 @@ object Day4 {
     f.close()
   }
 
-
   def process(f: BufferedSource): Int = {
     f.mkString
       .split("\n\n")
