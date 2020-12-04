@@ -13,14 +13,11 @@ object Day4 {
   }
 
 
-  def process(f: BufferedSource): Unit= {
+  def process(f: BufferedSource): Int = {
     f.mkString
       .split("\n\n")
-      .foreach(s =>  {
-        println(s)
-        println(checkSum(s) >= 7)
-        println()
-      })
+      .map(s => checkSum(s))
+      .count(_ >= 7)
   }
 
   def checkSum(passport: String): Int = {
@@ -32,18 +29,18 @@ object Day4 {
   }
 
   def patternFor(key: String): Regex =
-    key.trim match {
+    key match {
       case "byr" => "19[2-9][0-9]|200[0-2]".r
       case "iyr" => "20(1[0-9]|20)".r
       case "eyr" => "20(2[0-9]|30)".r
-      case "hgt" => "(1([5-8][0-9]|9[1-3]))cm|(59|6[0-9]|7[0-6])in".r
+      case "hgt" => "(1([5-8][0-9]|9[0-3]))cm|(59|6[0-9]|7[0-6])in".r
       case "hcl" => "#[0-9a-f]{6}".r
       case "ecl" => "amb|blu|brn|gry|grn|hzl|oth".r
       case "pid" => "[0-9]{9}".r
       case _ => "".r
     }
 
-  def validateField(r: Regex, v: String): Int = if (r.pattern.matcher(v.trim).matches()) 1 else 0
+  def validateField(r: Regex, v: String): Int = if (r.pattern.matcher(v).matches()) 1 else 0
 }
 
 
