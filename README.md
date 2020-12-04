@@ -1,3 +1,3 @@
-# adventofcode
+# adventofcode :christmastree: :santa: :gift:
 
-Gathers my implementations to the adventofcode challenge.
+Gathers my implementations to the advent of code challenge.
