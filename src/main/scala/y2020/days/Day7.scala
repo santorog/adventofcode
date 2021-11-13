@@ -20,18 +20,18 @@ object Day7 {
     f.mkString
       .split("\n")
       .map(rule => rule.split(" bags contain "))
-      .map(stringArray => stringArray(0) -> parseBagList(stringArray(1)))
+      .map(stringArray => stringArray(0) -> parseBagContentList(stringArray(1)))
       .toMap
   }
 
-  def parseBagList(bags: String): Set[(String, Int)] = {
+  def parseBagContentList(bags: String): Set[(String, Int)] = {
     " bag[s]?[|,.][ ]?".r.split(bags)
       .filter(s => s.nonEmpty && !s.equals("no other"))
-      .map(s => parseBagAndOccurences(s))
+      .map(s => parseIndividualBag(s))
       .toSet
   }
 
-  def parseBagAndOccurences(bags: String) : (String, Int) = {
+  def parseIndividualBag(bags: String): (String, Int) = {
     val pattern = "([0-9]+) (.*)".r
     val pattern(count, bagType) = bags
     (bagType, count.toInt)
@@ -52,12 +52,28 @@ object Day7 {
           .flatMap(s => analyzeRecursively(rules, s._1, acc + s._1))
           .toSet
     }
-   analyzeRecursively(rules, myBag, Set.empty)
+
+    analyzeRecursively(rules, myBag, Set.empty)
   }
 
   def question2(rules: Map[String, Set[(String, Int)]]): Unit = {
-    println()
+    println(findInnerBagsCount(rules, "shiny gold"))
+  }
 
+  def findInnerBagsCount(rules: Map[String, Set[(String, Int)]], myBag: String): Int = {
+
+    def analyzeRecursively(rules: Map[String, Set[(String, Int)]], myBag: String): Int = {
+      val bagContent = rules.get(myBag)
+      if (bagContent.isEmpty) 0
+      else
+        bagContent.map(l => {
+          val a = l.map(v => v._2 + v._2 * analyzeRecursively(rules, v._1))
+          println(a)
+          a.sum
+        }).getOrElse(0)
+    }
+
+    analyzeRecursively(rules, myBag)
   }
 
 }
