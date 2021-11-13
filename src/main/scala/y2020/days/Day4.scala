@@ -1,12 +1,11 @@
-package y2020.day4
+package y2020.days
 
 import scala.io.{BufferedSource, Source}
 import scala.util.matching.Regex
 
-
 object Day4 {
 
-  def runDay4(): Unit = {
+  def run(): Unit = {
     val f = Source.fromFile("input/2020/day4.txt")
     println(process(f))
     f.close()
@@ -41,6 +40,3 @@ object Day4 {
 
   def validateField(r: Regex, v: String): Int = if (r.pattern.matcher(v).matches()) 1 else 0
 }
-
-
-

@@ -1,12 +1,10 @@
-
-package y2020.day5
+package y2020.days
 
 import scala.io.{BufferedSource, Source}
 
-
 object Day5 {
 
-  def runDay5(): Unit = {
+  def run(): Unit = {
     val f = Source.fromFile("input/2020/day5.txt")
     println(process(f))
     f.close()
@@ -17,8 +15,8 @@ object Day5 {
       .split("\n")
       .map(s => checkSum(s))
       .sorted
-    for ( i <- a.indices) {
-      if ((a(i) + 1 )!= a(i+1)) println(a(i) + " " + a(i+1))
+    for (i <- a.indices) {
+      if ((a(i) + 1) != a(i + 1)) println(a(i) + " " + a(i + 1))
 
     }
   }
@@ -44,6 +42,3 @@ object Day5 {
   def id(row: Int, col: Int): Int = row * 8 + col
 
 }
-
-
-

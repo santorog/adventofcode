@@ -1,12 +1,11 @@
-package y2020.day3
+package y2020.days
 
 import scala.annotation.tailrec
 import scala.io.Source
 
-
 object Day3 {
 
-  def runDay3(): Unit = {
+  def run(): Unit = {
     val f = Source.fromFile("input/2020/day3.txt")
     val map: Array[Array[Char]] = f.mkString.split('\n').map(_.toCharArray)
 
@@ -35,5 +34,3 @@ object Day3 {
     aux(r, d, map.length, map(0).length, 0)
   }
 }
-
-

@@ -1,13 +1,11 @@
-
-package y2020.day6
+package y2020.days
 
 import scala.annotation.tailrec
 import scala.io.{BufferedSource, Source}
 
-
 object Day6 {
 
-  def runDay6(): Unit = {
+  def run(): Unit = {
     val f = Source.fromFile("input/2020/day6.txt")
     println(process(f))
     f.close()
@@ -36,6 +34,3 @@ object Day6 {
   }
 
 }
-
-
-

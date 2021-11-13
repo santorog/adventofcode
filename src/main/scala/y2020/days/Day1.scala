@@ -1,13 +1,13 @@
-package y2020.day1
+package y2020.days
 
 import scala.io.{BufferedSource, Source}
 
 object Day1 {
 
-  def runDay1() : Unit = {
+  def run(): Unit = {
     val f = Source.fromFile("input/2020/day1.txt")
     println(process(f, 2))
-   // println(process(f, 3))
+    // println(process(f, 3))
     f.close()
   }
 
