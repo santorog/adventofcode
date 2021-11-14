@@ -61,10 +61,8 @@ object Day7 {
   }
 
   def findInnerBagsCount(rules: Map[String, Set[(String, Int)]], myBag: String): Int = {
-    val bagContent = rules.get(myBag)
-    if (bagContent.isEmpty) 0
-    else
-      bagContent.map(l => l.map(v => v._2  + v._2 * findInnerBagsCount(rules, v._1)).sum).getOrElse(0)
+    val bagContent = rules.getOrElse(myBag, Set.empty)
+    bagContent.map(v => v._2 + v._2 * findInnerBagsCount(rules, v._1)).sum
   }
 
 }
