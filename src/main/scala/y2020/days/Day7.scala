@@ -12,8 +12,8 @@ object Day7 {
 
   def process(f: BufferedSource): Unit = {
     val rules = parseRulesFromFile(f)
-//    question1(rules)
-    question2(rules)
+    //star1(rules)
+    star2(rules)
   }
 
   def parseRulesFromFile(f: BufferedSource): Map[String, Set[(String, Int)]] = {
@@ -25,7 +25,7 @@ object Day7 {
   }
 
   def parseBagContentList(bags: String): Set[(String, Int)] = {
-    " bag[s]?[|,.][ ]?".r.split(bags)
+    " bag[s]?[,.][ ]?".r.split(bags)
       .filter(s => s.nonEmpty && !s.equals("no other"))
       .map(s => parseIndividualBag(s))
       .toSet
@@ -37,7 +37,7 @@ object Day7 {
     (bagType, count.toInt)
   }
 
-  def question1(rules: Map[String, Set[(String, Int)]]): Unit = {
+  def star1(rules: Map[String, Set[(String, Int)]]): Unit = {
     println(findOuterBags(rules, "shiny gold").size)
   }
 
@@ -56,7 +56,7 @@ object Day7 {
     analyzeRecursively(rules, myBag, Set.empty)
   }
 
-  def question2(rules: Map[String, Set[(String, Int)]]): Unit = {
+  def star2(rules: Map[String, Set[(String, Int)]]): Unit = {
     println(findInnerBagsCount(rules, "shiny gold"))
   }
 
@@ -64,7 +64,7 @@ object Day7 {
     val bagContent = rules.get(myBag)
     if (bagContent.isEmpty) 0
     else
-      bagContent.map(l => l.map(v => v._2 * (1 + findInnerBagsCount(rules, v._1))).sum).getOrElse(0)
+      bagContent.map(l => l.map(v => v._2  + v._2 * findInnerBagsCount(rules, v._1)).sum).getOrElse(0)
   }
 
 }
