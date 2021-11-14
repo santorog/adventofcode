@@ -12,7 +12,7 @@ object Day7 {
 
   def process(f: BufferedSource): Unit = {
     val rules = parseRulesFromFile(f)
-    question1(rules)
+//    question1(rules)
     question2(rules)
   }
 
@@ -61,19 +61,10 @@ object Day7 {
   }
 
   def findInnerBagsCount(rules: Map[String, Set[(String, Int)]], myBag: String): Int = {
-
-    def analyzeRecursively(rules: Map[String, Set[(String, Int)]], myBag: String): Int = {
-      val bagContent = rules.get(myBag)
-      if (bagContent.isEmpty) 0
-      else
-        bagContent.map(l => {
-          val a = l.map(v => v._2 + v._2 * analyzeRecursively(rules, v._1))
-          println(a)
-          a.sum
-        }).getOrElse(0)
-    }
-
-    analyzeRecursively(rules, myBag)
+    val bagContent = rules.get(myBag)
+    if (bagContent.isEmpty) 0
+    else
+      bagContent.map(l => l.map(v => v._2 * (1 + findInnerBagsCount(rules, v._1))).sum).getOrElse(0)
   }
 
 }
