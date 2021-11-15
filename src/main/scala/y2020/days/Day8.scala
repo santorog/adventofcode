@@ -1,7 +1,10 @@
 package y2020.days
 
+import y2020.days.Day8.Command.{ACC, JMP, NOP}
+
 import scala.annotation.tailrec
 import scala.io.{BufferedSource, Source}
+import scala.util.control.Breaks.{break, breakable}
 
 object Day8 {
 
@@ -9,22 +12,34 @@ object Day8 {
 
     def execute(line: Int, acc: Int): (Int, Int) = {
       op match {
-        case "acc" => (line + 1, acc + value)
-        case "jmp" => (line + value, acc)
-        case "nop" => (line + 1, acc)
+        case ACC => (line + 1, acc + value)
+        case JMP => (line + value, acc)
+        case NOP => (line + 1, acc)
       }
     }
+
+    def switch(): Command = {
+      op match {
+        case NOP => new Command(JMP, value)
+        case JMP => new Command(NOP, value)
+        case _ => this
+      }
+    }
+
+  }
+
+  object Command {
+    val ACC = "acc"
+    val JMP = "jmp"
+    val NOP = "nop"
   }
 
   def run(): Unit = {
     val f = Source.fromFile("input/2020/day8.txt")
-    process(f)
-    f.close()
-  }
-
-  def process(f: BufferedSource): Unit = {
     val script = parseScript(f)
     star1(script)
+    star2(script)
+    f.close()
   }
 
   def parseScript(bufferedSource: BufferedSource): Seq[Command] = {
@@ -39,17 +54,28 @@ object Day8 {
     new Command(op, shift.toInt)
   }
 
+  @tailrec
+  def runScriptSafely(script: Seq[Command], currentLine: Int, acc: Int, visitedLines: Set[Int]): (Int, Int) = {
+    if (visitedLines.contains(currentLine) || script.length <= currentLine) return (currentLine, acc)
+
+    val params = script(currentLine).execute(currentLine, acc)
+    runScriptSafely(script, params._1, params._2, visitedLines + currentLine)
+  }
+
   def star1(script: Seq[Command]): Unit = {
+    println(runScriptSafely(script, 0, 0, Set.empty)._2)
+  }
 
-    @tailrec
-    def aux(script: Seq[Command], commandLine: Int, acc: Int, visitedLines: Set[Int]): Int = {
-      if (visitedLines.contains(commandLine)) return acc
+  def star2(script: Seq[Command]): Unit = {
 
-      val params = script(commandLine).execute(commandLine, acc)
-      aux(script, params._1, params._2, visitedLines + commandLine)
+    for (index <- script.indices) {
+      val command = script(index)
+      breakable {
+        if (command.op.equals(ACC)) break
+      }
+      val result = runScriptSafely(script.updated(index, command.switch()), 0, 0, Set.empty)
+      if (result._1 == script.length) println(result._2)
     }
-
-    println(aux(script, 0, 0, Set.empty))
   }
 
 }
