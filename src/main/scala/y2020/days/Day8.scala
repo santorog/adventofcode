@@ -42,7 +42,7 @@ object Day8 {
   def star1(script: Seq[Command]): Unit = {
 
     @tailrec
-    def aux(script: Seq[Command], commandLine: Int, acc: Int, visitedLines: Set[Int]) : Int = {
+    def aux(script: Seq[Command], commandLine: Int, acc: Int, visitedLines: Set[Int]): Int = {
       if (visitedLines.contains(commandLine)) return acc
 
       val params = script(commandLine).execute(commandLine, acc)
