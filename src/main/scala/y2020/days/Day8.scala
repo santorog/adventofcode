@@ -74,7 +74,7 @@ object Day8 {
         if (command.op.equals(ACC)) break
       }
       val result = runScriptSafely(script.updated(index, command.switch()), 0, 0, Set.empty)
-      if (result._1 == script.length) println(result._2)
+      if (result._1 >= script.length) println(result._2)
     }
   }
 
