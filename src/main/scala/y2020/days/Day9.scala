@@ -18,34 +18,34 @@ object Day9 {
   }
 
   @tailrec
-  def findFirstNotASum(numberSeq: Seq[Long], current: Int): Long = {
-    if (!numberSeq.slice(current - 25, current).combinations(2).exists(x => x.sum == numberSeq(current)))
-      numberSeq(current)
+  def findFirstNotASum(numbers: Seq[Long], current: Int): Long = {
+    if (!numbers.slice(current - 25, current).combinations(2).exists(x => x.sum == numbers(current)))
+      numbers(current)
     else
-      findFirstNotASum(numberSeq, current + 1)
+      findFirstNotASum(numbers, current + 1)
   }
 
   def star2(numbers: Seq[Long]): Unit = {
     println(findContiguousSequence(numbers))
   }
 
-  def findContiguousSequence(numberSeq: Seq[Long]): Long = {
+  def findContiguousSequence(numbers: Seq[Long]): Long = {
 
-    val numberToHack = findFirstNotASum(numberSeq, 25)
+    val numberToHack = findFirstNotASum(numbers, 25)
 
     @tailrec
-    def boundsChange(startIndex: Int, endIndex: Int): Long = {
-      val slice = numberSeq.slice(startIndex, endIndex)
+    def boundsChangeSolver(startIndex: Int, endIndex: Int): Long = {
+      val slice = numbers.slice(startIndex, endIndex)
       val sliceSum = slice.sum
       if (sliceSum < numberToHack)
-        boundsChange(startIndex, endIndex + 1)
+        boundsChangeSolver(startIndex, endIndex + 1)
       else if (sliceSum > numberToHack)
-        boundsChange(startIndex + 1, startIndex + 2)
+        boundsChangeSolver(startIndex + 1, startIndex + 2)
       else
         slice.min + slice.max
     }
 
-    boundsChange(0, 1)
+    boundsChangeSolver(0, 1)
   }
 
 }
