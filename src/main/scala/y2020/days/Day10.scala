@@ -32,7 +32,19 @@ object Day10 {
   }
 
     def star2(numbers: Seq[Long]): Unit = {
-      // WIP
+
+      val maxIndex = numbers.length - 1
+      def aux(index: Int): Int = {
+
+        if (index == maxIndex) return 1
+
+        val c2 = if ( index + 2 <= maxIndex && numbers(index + 2) - numbers(index) <= 3 ) aux(index + 2) else 0
+        val c3 = if ( index + 3 <= maxIndex && numbers(index + 3) - numbers(index) <= 3 ) aux(index + 3) else 0
+
+        aux(index + 1) + c2 + c3
+      }
+
+      println(aux(0) + aux(1))
     }
 
 }
