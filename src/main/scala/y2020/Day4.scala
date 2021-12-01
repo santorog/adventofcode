@@ -1,4 +1,4 @@
-package y2020.days
+package y2020
 
 import scala.io.{BufferedSource, Source}
 import scala.util.matching.Regex

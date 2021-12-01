@@ -1,6 +1,6 @@
-package y2020.days
+package y2020
 
-import y2020.days.Day8.Command.{ACC, JMP, NOP}
+import Day8.Command.{ACC, JMP, NOP}
 
 import scala.annotation.tailrec
 import scala.io.{BufferedSource, Source}
