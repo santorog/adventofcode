@@ -1,7 +1,7 @@
-import y2021.{Day1, Day2}
+import y2021.{Day1, Day2, Day3}
 
 object Main extends App {
 
-  Day2.run()
+  Day3.run()
 
 }
