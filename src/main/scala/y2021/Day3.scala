@@ -5,7 +5,6 @@ import scala.io.Source
 
 object Day3 {
 
-
   def run(): Unit = {
     val f = Source.fromFile("input/2021/day3.txt")
     val input = f.mkString.split('\n')
@@ -46,5 +45,3 @@ object Day3 {
     aux(input, 0, isOxygenRating = true) * aux(input, 0, isOxygenRating = false)
   }
 }
-
-
